@@ -1,0 +1,7 @@
+﻿address;city;state;zip;county;year_built;bathrooms;bedrooms;heating_system;cooling_system;fireplace;pool;style;basement;basement_finished;lot_size;sq_feet;hoa;property_taxes;property_type
+14392 Hubbard St;Livonia;MI;48154;Wayne;1965;3;4;Baseboard;Chiller Cooling;1;0;Colonial;0;0;9583;2166;0;583;1
+22773 Violet St;Farmington;MI;48336;Oakland;1949;1;2;Forced Air;Central;0;0;Ranch;1;0;6534;700;0;163;1
+22766 Buckingham St;Dearborn;MI;48128;Wayne;1941;3;4;Forced Air;Central;1;0;Bungalow;1;0;3920;1514;0;516;1
+1668 Greenway Ave;Columbus;OH;43203;Franklin;1920;2;4;Forced Air;N/A;0;0;Cape cod;1;0;4356;2151;0;326;1
+10201 Mason Rd;Cheyenne;WY;82009;Laramie;1977;3;3;Baseboard;N/A;0;0;Ranch;1;1;435600;3287;0;195;1
+602 158th St;Queens;NY;11357;Queens;2009;8;7;N/A;N/A;1;1;Other;1;1;21780;10000;0;5592;1

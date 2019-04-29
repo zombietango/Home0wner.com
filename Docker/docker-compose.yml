@@ -1,0 +1,36 @@
+version: '2'
+
+volumes:
+    database_data:
+        driver: local
+
+services:
+  nginx:
+      image: nginx:latest
+      ports:
+          - 8880:80
+      volumes:
+          - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+      volumes_from:
+          - php
+  php:
+        build: ./php/
+        expose:
+            - 9000
+        volumes:
+            - ../Code/Home0wner.com:/var/www/html
+  mysql:
+      image: mysql:latest
+      expose:
+          - 3306
+      ports:
+          - 3306:3306
+      volumes:
+          - ./mysql/data:/var/lib/mysql
+          - ./mysql/conf.d:/etc/mysql/conf.d
+          - ./mysql/raw/Home0wner_com.sql:/docker-entrypoint-initdb.d/Home0wner_com.sql
+      environment:
+          MYSQL_ROOT_PASSWORD: r00tR0ckzSockz
+          MYSQL_DATABASE: home0wner_com
+          MYSQL_USER: home0wner.com
+          MYSQL_PASSWORD: Home0wner.com-is-vulnerable

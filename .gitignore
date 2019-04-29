@@ -1,0 +1,9 @@
+## Do not track the following
+
+## Ignore all .DS_Store filesystem metadata files
+
+**/.DS_Store
+
+## Ignore any local MySQL Data files. Since the database is being stored on local filestorage rather than in the MySQL Docker container, this keeps these files from propigating
+
+Docker/mysql/data/*
