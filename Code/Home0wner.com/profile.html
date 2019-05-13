@@ -130,6 +130,21 @@
             </div>
         </section>
 
+    <!-- ##### User Profile Area End ##### -->
+
+    <!-- ##### Financing Overview Area Start ##### -->
+    <section class="financing-overview-area section-padding-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 financing-details">
+                    <button id="my-finance-button" type="button" class="btn btn-primary" onclick="window.location='/financing.html'">Financing Button</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- ##### Finaincing Overview Area End ##### -->
+
     <!-- ##### My Saved Properties Area Start ##### -->
     <section class="listings-content-wrapper section-padding-100">
             <div class="container">
@@ -318,6 +333,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                     window.location = $(this).attr('href');
                 });
                 getUserProfile();
+                var myID = userIDFromJWT();
+                hasDoneCreditPull(myID);
             } else {
                 window.location = "/login.html";
                 

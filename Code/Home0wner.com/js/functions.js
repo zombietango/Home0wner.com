@@ -429,6 +429,26 @@ function checkFinancingStatus(id) {
     });
 }
 
+function hasDoneCreditPull(id) {
+    $.ajax({
+        url: CHECKFINANCINGAPI,
+        type: 'GET',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader("Authorization", "Bearer " + getJWT());
+        },
+        statusCode : {
+            200: function() { 
+                $('#my-finance-button').html('See My Financing!');
+            },
+            404: function() { 
+                $('#financing-details').removeClass('btn-primary');
+                $('#financing-details').addClass('btn-success');
+                $('#financing-details').html('Apply For Financing!');
+            }
+        }
+    });
+}
+
 function getCreditDetails(id) {
     $.ajax({
         url: CREDITDETAILSAPI,
