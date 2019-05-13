@@ -3,3 +3,4 @@ Disallow: /api/
 Disallow: /admin/
 Disallow: /js/
 Disallow: /img/
+Disallow: /api/config
