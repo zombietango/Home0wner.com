@@ -7,3 +7,9 @@
 ## Ignore any local MySQL Data files. Since the database is being stored on local filestorage rather than in the MySQL Docker container, this keeps these files from propigating
 
 Docker/mysql/data/*
+
+## Ignore Localized Log Files
+
+RawData/Logs/nginx/*.log
+RawData/Logs/*.log
+RawData/samplePHPMetricsSerializer.php

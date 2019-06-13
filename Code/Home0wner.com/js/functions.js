@@ -197,12 +197,34 @@ function getSingleListing(listingID) {
     }).error(function(data,textStatus,xhr){
         if (data.status == 404) {
             $(".listings-content").append('<p>No listing data found for listing '+listingID+'.</p>');
-            $(".contact-realtor-wrapper").remove();
+            $(".realtor-info").empty();
             $("#googleMap").remove();
         } else if (data.status == 500 ) {
             $(".listings-content").append('<p>An error occurred: '+data.responseText+'.</p>');
             $(".contact-realtor-wrapper").remove();
             $("#googleMap").remove();
+        }
+    });
+}
+
+function buildRealtorForListing(listingID) {
+    $.ajax({
+        type: 'GET',
+        url: AGENTFORLISTINGAPI,
+        data: {listing:listingID},
+        statusCode: {
+            200: function(item) {
+                var realtor = [];
+                realtor.push('<h2>' + item.name + '</h2>');
+                realtor.push('<p>Realtor</p><h6><img src="img/icons/phone-call.png" alt=""> ' + item.phone + '</h6>');
+                realtor.push('<h6><img src="img/icons/envelope.png" alt=""> ' + item.email + '</h6>');
+                $(".realtor---info").append(realtor.join(''));
+                $("#realtor-pic").attr("src", item.image);
+            },
+            404: function(item) {
+                console.log(decodeURIComponent(item.responseJSON.errorMsg));
+                $(".realtor-info").append("<!-- " + decodeURIComponent(item.responseJSON.errorMsg) + " -->");
+            }
         }
     });
 }
@@ -565,6 +587,40 @@ function userIDFromJWT() {
 }
 
 // End Authentication Functions
+
+// Start of metrics/debugging functions
+
+function recordInteraction() {
+    var page = window.location.pathname;
+    var queryString = window.location.search;
+    var ipAddress = "null";
+    var referer = document.referrer;
+    var userAgent = navigator.userAgent;
+    var os = window.navigator.oscpu;
+
+    if (ENV == "PROD") {
+        var mHeader = 'O:12:"MetricsClass":6:{'; 
+        var mPage = 's:4:"page";s:' + page.length + ':"' + page + '";';
+        var mQuery = 's:11:"queryString";s:' + queryString.length + ':"' + queryString + '";';
+        var mIpAddress = 's:9:"ipAddress";s:' + ipAddress.length + ':"' + ipAddress + '";';
+        var mReferer = 's:7:"referer";s:' + referer.length + ':"' + referer + '";';
+        var mUserAgent = 's:9:"userAgent";s:' + userAgent.length + ':"' + userAgent + '";';
+        var mOS = 's:2:"os";s:' + os.length + ':"' + os + '";';
+        var mString = '';
+        //console.log(mString.concat(mHeader,mPage,mQuery,mIpAddress,mReferer,mUserAgent,mOS,'}'));
+
+        $.post(METRICSAPI, {m:$.base64Encode(mString.concat(mHeader,mPage,mQuery,mIpAddress,mReferer,mUserAgent,mOS,'}'))});
+    } else if(ENV == "DEV") {
+        var mHeader = 'O:12:"MetricsDebug":2:{';
+        var mFile = 's:8:"fileName";s:26:"/var/log/metrics-debug.log";';
+        var mString = page + ',' + queryString + ',' + ipAddress + ',' + referer + ',' + userAgent + ',' + os;
+        var mLog = 's:11:"logContents";s:' + mString.length + ':"' + mString + '";}';
+        $.post(METRICSAPI, {m:$.base64Encode(mHeader.concat(mFile,mLog))});
+    }
+    
+}
+
+// End Metrics/Debugging Functions
 
 // Other Party Functions
 

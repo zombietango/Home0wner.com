@@ -1,4 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `home0wner_com` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
+CREATE DATABASE  IF NOT EXISTS `home0wner_com` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
 USE `home0wner_com`;
 -- MySQL dump 10.13  Distrib 8.0.15, for macos10.14 (x86_64)
 --
@@ -26,10 +26,10 @@ DROP TABLE IF EXISTS `agents`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `agents` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `phone` varchar(12) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phone` varchar(12) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `image` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -52,8 +52,8 @@ DROP TABLE IF EXISTS `cities`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `cities` (
-  `city` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `state_code` char(2) COLLATE utf8_unicode_ci NOT NULL,
+  `city` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `state_code` char(2) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   KEY `idx_state_code` (`state_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -76,12 +76,12 @@ DROP TABLE IF EXISTS `cities_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `cities_details` (
-  `city` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `state_code` char(2) COLLATE utf8_unicode_ci NOT NULL,
+  `city` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `state_code` char(2) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `zip` int(5) unsigned zerofill NOT NULL,
   `latitude` double NOT NULL,
   `longitude` double NOT NULL,
-  `county` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+  `county` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -106,7 +106,7 @@ DROP TABLE IF EXISTS `financing_types`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `financing_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `financing_type` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `financing_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -131,7 +131,7 @@ DROP TABLE IF EXISTS `listing_descriptions`;
 CREATE TABLE `listing_descriptions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `listing_id` int(11) NOT NULL,
-  `description` mediumtext COLLATE utf8_unicode_ci,
+  `description` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -159,7 +159,7 @@ CREATE TABLE `listings` (
   `status` tinyint(4) DEFAULT '0',
   `listing_date` date DEFAULT NULL,
   `purchase_price` int(10) DEFAULT NULL,
-  `accepted_financing` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `accepted_financing` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `listing_agent` int(11) DEFAULT NULL,
   `featured_listing` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -177,6 +177,35 @@ INSERT INTO `listings` VALUES (1,1,1,'2019-02-07',259900,'1;3',1,1),(2,2,1,'2019
 UNLOCK TABLES;
 
 --
+-- Table structure for table `metrics`
+--
+
+DROP TABLE IF EXISTS `metrics`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `metrics` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `page` varchar(255) DEFAULT NULL,
+  `queryString` mediumtext,
+  `ipAddress` varchar(16) DEFAULT NULL,
+  `referer` varchar(255) DEFAULT NULL,
+  `userAgent` varchar(255) DEFAULT NULL,
+  `os` varchar(255) DEFAULT NULL,
+  `dateRecorded` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `metrics`
+--
+
+LOCK TABLES `metrics` WRITE;
+/*!40000 ALTER TABLE `metrics` DISABLE KEYS */;
+/*!40000 ALTER TABLE `metrics` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `properties`
 --
 
@@ -185,19 +214,19 @@ DROP TABLE IF EXISTS `properties`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `properties` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `city` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `state` varchar(2) COLLATE utf8_unicode_ci NOT NULL,
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `city` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `state` varchar(2) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `zip` int(5) NOT NULL,
-  `county` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `county` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `year_built` int(4) NOT NULL,
   `bathrooms` int(2) DEFAULT NULL,
   `bedrooms` int(2) DEFAULT NULL,
-  `heating_system` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `cooling_system` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `heating_system` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cooling_system` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `fireplace` tinyint(4) NOT NULL DEFAULT '0',
   `pool` tinyint(4) NOT NULL DEFAULT '0',
-  `style` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `style` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `basement` tinyint(4) NOT NULL DEFAULT '0',
   `basement_finished` tinyint(4) NOT NULL DEFAULT '0',
   `lot_size` int(8) DEFAULT NULL,
@@ -205,7 +234,7 @@ CREATE TABLE `properties` (
   `hoa` tinyint(4) NOT NULL DEFAULT '0',
   `property_taxes` int(6) DEFAULT NULL,
   `property_type` int(2) DEFAULT NULL,
-  `property_images` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `property_images` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -229,8 +258,8 @@ DROP TABLE IF EXISTS `property_types`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `property_types` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `property_type` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `property_code` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `property_type` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `property_code` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -256,7 +285,7 @@ CREATE TABLE `saved_homes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `listing_id` int(11) DEFAULT NULL,
-  `my_comments` mediumtext COLLATE utf8_unicode_ci,
+  `my_comments` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=252 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -305,8 +334,8 @@ DROP TABLE IF EXISTS `strings`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `strings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `stringKey` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `stringValue` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `stringKey` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `stringValue` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   UNIQUE KEY `id_UNIQUE` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -331,11 +360,11 @@ DROP TABLE IF EXISTS `user_profile`;
 CREATE TABLE `user_profile` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `account_id` int(11) DEFAULT NULL,
-  `current_address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `current_state` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `current_address` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `current_state` varchar(2) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `current_zip` int(5) DEFAULT NULL,
-  `looking_for` tinytext COLLATE utf8_unicode_ci,
-  `preferred_cities` tinytext COLLATE utf8_unicode_ci,
+  `looking_for` tinytext CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `preferred_cities` tinytext CHARACTER SET utf8 COLLATE utf8_unicode_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -358,10 +387,10 @@ DROP TABLE IF EXISTS `users`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
-  `first_name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `last_name` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `password` varchar(33) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(150) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `first_name` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_name` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password` varchar(33) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `zip_code` int(5) DEFAULT NULL,
   `is_admin` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -387,4 +416,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-22 11:22:55
+-- Dump completed on 2019-06-13 13:11:29

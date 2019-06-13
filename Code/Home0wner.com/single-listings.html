@@ -274,12 +274,9 @@
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="contact-realtor-wrapper">
                         <div class="realtor-info">
-                            <img src="img/bg-img/listing.jpg" alt="">
+                            <img src="img/bg-img/listing.jpg" alt="" id="realtor-pic">
                             <div class="realtor---info">
-                                <h2>Jeremy Scott</h2>
-                                <p>Realtor</p>
-                                <h6><img src="img/icons/phone-call.png" alt=""> +45 677 8993000 223</h6>
-                                <h6><img src="img/icons/envelope.png" alt=""> office@template.com</h6>
+                                <!-- Realtor Content goes here -->
                             </div>
                             <div class="realtor--contact-form">
                                 <form action="#" method="post">
@@ -486,7 +483,7 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
     
                     //getActiveListingsGrid(0,"listings.listing_date");
                     getSingleListing(getParam("listing"));
-    
+                    buildRealtorForListing(getParam("listing"));
                 });
     
                 $(document).on("focus keyup", "input.autocomplete", function() {
@@ -533,6 +530,8 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                     $input.val($li.text());
                 }
             });
+
+            recordInteraction();
         </script>
 </body>
 
